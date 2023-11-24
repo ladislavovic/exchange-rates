@@ -1,4 +1,4 @@
-package com.shipmonk.testingday.model;
+package com.shipmonk.testingday.apimodel;
 
 public class Rate {
 

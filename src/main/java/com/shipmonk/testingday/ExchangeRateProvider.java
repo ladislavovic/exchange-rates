@@ -1,4 +1,6 @@
-package com.shipmonk.testingday.provider;
+package com.shipmonk.testingday;
+
+import com.shipmonk.testingday.model.ExchangeRates;
 
 public interface ExchangeRateProvider {
 
