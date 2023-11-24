@@ -2,6 +2,8 @@ package com.shipmonk.testingday;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class TestingdayExchangeRatesApplication
@@ -10,6 +12,11 @@ public class TestingdayExchangeRatesApplication
     public static void main(String[] args)
     {
         SpringApplication.run(TestingdayExchangeRatesApplication.class, args);
+    }
+
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }

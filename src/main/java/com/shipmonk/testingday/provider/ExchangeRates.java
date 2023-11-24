@@ -1,11 +1,10 @@
-package com.shipmonk.testingday.model;
+package com.shipmonk.testingday.provider;
 
-import com.shipmonk.testingday.provider.ExchangeRates;
+import com.shipmonk.testingday.model.Rate;
 
-import java.time.LocalDate;
 import java.util.List;
 
-public class RatesOutput {
+public class ExchangeRates {
 
     private boolean success;
 
@@ -16,13 +15,6 @@ public class RatesOutput {
     private String date;
 
     private List<Rate> rates;
-
-    public RatesOutput(ExchangeRates exchangeRates) {
-        success = exchangeRates.isSuccess();
-        timestamp = exchangeRates.getTimestamp();
-        base = exchangeRates.getBase();
-        date = exchangeRates.getDate();
-    }
 
     public boolean isSuccess() {
         return success;
