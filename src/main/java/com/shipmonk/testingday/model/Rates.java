@@ -1,10 +1,8 @@
 package com.shipmonk.testingday.model;
 
-import com.shipmonk.testingday.apimodel.Rate;
-
 import java.util.List;
 
-public class ExchangeRates {
+public class Rates {
 
     private boolean success;
 

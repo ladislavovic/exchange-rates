@@ -1,6 +1,7 @@
 package com.shipmonk.testingday.dbcache;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -17,6 +18,7 @@ public class CacheEntry {
     private long storeTimestamp;
 
     /** The cached data */
+    @Column(length = 4096)
     private String payload;
 
     public String getDate() {

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shipmonk.testingday.ExchangeRateCache;
 import com.shipmonk.testingday.ExchangeRateProvider;
-import com.shipmonk.testingday.model.ExchangeRates;
+import com.shipmonk.testingday.model.Rates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +40,7 @@ public class FixerIOExchangeRateProvider implements ExchangeRateProvider {
     }
 
     @Override
-    public ExchangeRates getExchangeRates(final String date) {
+    public Rates getExchangeRates(final String date) {
 
         String payload;
         if (cache.isInCache(date)) {
@@ -57,7 +57,7 @@ public class FixerIOExchangeRateProvider implements ExchangeRateProvider {
             throw new RuntimeException(e);
         }
 
-        return new ExchangeRates();
+        return new Rates();
     }
 
     private String getExchangeRatesFromApi(String date) {

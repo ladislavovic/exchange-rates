@@ -1,6 +1,6 @@
 package com.shipmonk.testingday;
 
-import com.shipmonk.testingday.model.ExchangeRates;
+import com.shipmonk.testingday.model.Rates;
 
 public interface ExchangeRateProvider {
 
@@ -10,6 +10,6 @@ public interface ExchangeRateProvider {
      * @param date The date you want exchange rates for
      * @return Exchange rates
      */
-    ExchangeRates getExchangeRates(String date);
+    Rates getExchangeRates(String date);
 
 }

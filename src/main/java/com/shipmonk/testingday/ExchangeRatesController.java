@@ -1,7 +1,7 @@
 package com.shipmonk.testingday;
 
 import com.shipmonk.testingday.apimodel.RatesApiOutput;
-import com.shipmonk.testingday.model.ExchangeRates;
+import com.shipmonk.testingday.model.Rates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class ExchangeRatesController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/{day}")
     public ResponseEntity<RatesApiOutput> getRates(@PathVariable("day") String day) {
-        ExchangeRates rates = exchangeRateProvider.getExchangeRates(day);
+        Rates rates = exchangeRateProvider.getExchangeRates(day);
         RatesApiOutput ratesApiOutput = new RatesApiOutput(rates);
         return new ResponseEntity<>(
             ratesApiOutput,

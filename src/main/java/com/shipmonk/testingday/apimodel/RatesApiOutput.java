@@ -1,8 +1,9 @@
 package com.shipmonk.testingday.apimodel;
 
-import com.shipmonk.testingday.model.ExchangeRates;
+import com.shipmonk.testingday.model.Rates;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RatesApiOutput {
 
@@ -14,13 +15,18 @@ public class RatesApiOutput {
 
     private String date;
 
-    private List<Rate> rates;
+    private List<RateApiOutput> rates;
 
-    public RatesApiOutput(ExchangeRates exchangeRates) {
-        success = exchangeRates.isSuccess();
-        timestamp = exchangeRates.getTimestamp();
-        base = exchangeRates.getBase();
-        date = exchangeRates.getDate();
+    public RatesApiOutput(Rates rates) {
+        this.success = rates.isSuccess();
+        this.timestamp = rates.getTimestamp();
+        this.base = rates.getBase();
+        this.date = rates.getDate();
+        this.rates = rates
+            .getRates()
+            .stream()
+            .map(RateApiOutput::new)
+            .collect(Collectors.toList());
     }
 
     public boolean isSuccess() {
@@ -55,11 +61,11 @@ public class RatesApiOutput {
         this.date = date;
     }
 
-    public List<Rate> getRates() {
+    public List<RateApiOutput> getRates() {
         return rates;
     }
 
-    public void setRates(List<Rate> rates) {
+    public void setRates(List<RateApiOutput> rates) {
         this.rates = rates;
     }
 }
