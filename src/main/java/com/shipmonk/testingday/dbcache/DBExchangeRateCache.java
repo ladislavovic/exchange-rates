@@ -1,6 +1,6 @@
 package com.shipmonk.testingday.dbcache;
 
-import com.shipmonk.testingday.ExchangeRateCache;
+import com.shipmonk.testingday.cache.ExchangeRateCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

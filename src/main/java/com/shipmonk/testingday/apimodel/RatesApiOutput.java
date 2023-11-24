@@ -22,11 +22,11 @@ public class RatesApiOutput {
         this.timestamp = rates.getTimestamp();
         this.base = rates.getBase();
         this.date = rates.getDate();
-        this.rates = rates
-            .getRates()
-            .stream()
-            .map(RateApiOutput::new)
-            .collect(Collectors.toList());
+//        this.rates = rates
+//            .getRates()
+//            .stream()
+//            .map(RateApiOutput::new)
+//            .collect(Collectors.toList());
     }
 
     public boolean isSuccess() {

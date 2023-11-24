@@ -1,4 +1,4 @@
-package com.shipmonk.testingday;
+package com.shipmonk.testingday.cache;
 
 import com.shipmonk.testingday.dbcache.CacheEntry;
 

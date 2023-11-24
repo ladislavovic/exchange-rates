@@ -3,8 +3,9 @@ package com.shipmonk.testingday.fixerioprovider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shipmonk.testingday.ExchangeRateCache;
-import com.shipmonk.testingday.ExchangeRateProvider;
+import com.shipmonk.testingday.cache.ExchangeRateCache;
+import com.shipmonk.testingday.provider.CanNotGetExchangeRatesException;
+import com.shipmonk.testingday.provider.ExchangeRateProvider;
 import com.shipmonk.testingday.model.Rates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,12 +42,25 @@ public class FixerIOExchangeRateProvider implements ExchangeRateProvider {
 
     @Override
     public Rates getExchangeRates(final String date) {
+        try {
+            return doGetExchangeRates(date);
+        } catch (CanNotGetExchangeRatesException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new CanNotGetExchangeRatesException(e);
+        }
+    }
+
+    private Rates doGetExchangeRates(final String date) {
 
         String payload;
         if (cache.isInCache(date)) {
             payload = cache.get(date).getPayload();
         } else {
             payload = getExchangeRatesFromApi(date);
+
+            // TODO "latest" should not be stored to the cache or there should be
+            // an cache entry expiration date to make the cache entry invalid
             cache.upsert(date, payload);
         }
 
@@ -54,7 +68,7 @@ public class FixerIOExchangeRateProvider implements ExchangeRateProvider {
         try {
             JsonNode jsonNode = objectMapper.readTree(payload);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new CanNotGetExchangeRatesException(e);
         }
 
         return new Rates();
@@ -67,6 +81,12 @@ public class FixerIOExchangeRateProvider implements ExchangeRateProvider {
         params.put("apiKey", apiKey);
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class, params);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            String message = String.format("Can not get exchange rates. Details: %s" + response.getBody());
+            throw new CanNotGetExchangeRatesException(message);
+        }
+
         return response.getBody();
     }
 
